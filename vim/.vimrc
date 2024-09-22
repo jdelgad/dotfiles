@@ -16,7 +16,6 @@ Plug 'majutsushi/tagbar'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
@@ -219,21 +218,6 @@ let NERDTreeIgnore=['\.o$', '\.pyc$', '\.exe\~$']
 " ctrlp settings
 let g:ctrlp_map='<c-p>'
 
-" syntastic settings
-" not needed since I run vim-airline
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_python_checkers=['pylint']
-" set passive mode for go due to vim-go plugin
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["go"] }
-
 " highlight unwanted trailing whitespace as red
 " on buffer entrance/leave as well as insert mode
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -299,8 +283,6 @@ let g:go_highlight_methods=1
 let g:go_highlight_operators=1
 let g:go_highlight_structs=1
 let g:go_highlight_types=1
-" compatibility with syntastic recommends all windows be quickfix lists
-let g:go_list_type="quickfix"
 let g:go_metalinter_autosave=1
 
 " Recommended key-mappings.
