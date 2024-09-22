@@ -43,16 +43,20 @@ set cindent
 set cmdheight=2
 set colorcolumn=120
 set completeopt=menu,longest,preview
+set confirm
 set cul
 set cursorline
 set diffopt=filler,iwhite,vertical
 set directory=~/.vim/tmp
+set display+=lastline
 set encoding=utf-8
 set expandtab
 set ff=unix
 set fileformats=unix
 set foldlevelstart=99
 set foldmethod=indent
+set foldnestmax=3
+set formatoptions+=j
 set formatoptions=qrn1
 set gdefault
 set guicursor+=v:blinkon0
@@ -63,6 +67,7 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set lbr
+set linebreak
 set list
 set listchars=tab:→\ ,trail:⋅,extends:❯,precedes:❮
 set magic
@@ -71,17 +76,24 @@ set mouse=a
 set nodigraph
 set noea
 set noerrorbells
+set nofoldenable
 set nohidden
+set nojoinspaces
 set nospell
+set nostartofline
+set noswapfile
 set novb
 set nowrap
 set number
+set path+=**
 set report=0
 set ruler
 set scrolloff=5
 set shell=zsh
 set shiftround
+set shiftround
 set shiftwidth=4
+set showbreak=+++
 set showcmd
 set showmatch
 set showmode
@@ -96,8 +108,11 @@ set splitright
 set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 set tabstop=4
 set tags=tags;/
+set t_Co=256
 set textwidth=200
 set title
+set ttimeout
+set ttimeoutlen=100
 set ttyfast
 set t_vb=
 set undodir=~/.vim/undo
@@ -171,14 +186,6 @@ vnoremap < <gv
 vnoremap <tab> %
 vnoremap > >gv
 
-if has('syntax')
-    syntax on
-    " Remember that rxvt-unicode has 88 colors by default; enable this
-    " only if you are using the 256-color patch
-    if &term == 'rxvt-unicode' || &term == 'xterm'
-        set t_Co=256
-    endif
-endif
 
 augroup vimrcEx
   au!
