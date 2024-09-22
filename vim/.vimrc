@@ -1,18 +1,17 @@
-set nocompatible
 filetype off
 
 call plug#begin()
 
-" List your plugins here
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'bling/vim-airline'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'fatih/molokai'
 Plug 'fatih/vim-go'
 Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -29,12 +28,12 @@ filetype on
 filetype plugin indent on
 let c_space_errors=1
 let mapleader=','
+let &colorcolumn="120,".join(range(120,999),",")
 
 syntax enable
 colorscheme dracula
 
 set autochdir
-set autoindent
 set autoread
 set autowrite
 set background=dark
@@ -43,7 +42,7 @@ set backup
 set backupdir=~/.vim/backup
 set cindent
 set cmdheight=2
-let &colorcolumn="80,".join(range(120,999),",")
+set colorcolumn=120
 set completeopt=menu,longest,preview
 set cul
 set cursorline
@@ -53,6 +52,8 @@ set encoding=utf-8
 set expandtab
 set ff=unix
 set fileformats=unix
+set foldlevelstart=99
+set foldmethod=indent
 set formatoptions=qrn1
 set gdefault
 set guicursor+=v:blinkon0
@@ -63,6 +64,8 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set lbr
+set list
+set listchars=tab:→\ ,trail:⋅,extends:❯,precedes:❮
 set magic
 set modelines=0
 set mouse=a
@@ -74,11 +77,10 @@ set nospell
 set novb
 set nowrap
 set number
-"set relativenumber
 set report=0
 set ruler
 set scrolloff=5
-set shell=bash
+set shell=zsh
 set shiftround
 set shiftwidth=4
 set showcmd
@@ -90,22 +92,21 @@ set smartcase
 set smartindent
 set smarttab
 set softtabstop=4
+set splitbelow
+set splitright
 set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
-set t_vb=
 set tabstop=4
 set tags=tags;/
 set textwidth=200
 set title
 set ttyfast
+set t_vb=
 set undodir=~/.vim/undo
 set undofile
 set undolevels=500
 set updatetime=250
-set viminfo='20,\"50,:20,/20,%,n~/.viminfo
-
-" Remember info about open buffers on close
 set viminfo^=%
-
+set viminfo='20,\"50,:20,/20,%,n~/.viminfo
 set visualbell
 set whichwrap+=<,>,h,l
 set wildignore=*.o,*~,*.pyc,*.pyo,*.exe,.git\*,.idea\*
@@ -121,6 +122,7 @@ nnoremap <leader>bd :Bclose<cr>
 
 " Close all the buffers
 map <leader>bda :%bd!<cr>
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
 inoremap <silent> <Down> <C-o>gj
 inoremap <silent> <Down> <Esc>gja
@@ -187,12 +189,6 @@ augroup vimrcEx
     \   exe "normal! g`\"" |
     \ endif
 augroup END
-
-set guifont=Consolas\ 12
-
-au FileType go let g:rehash256=1
-au FileType go let g:molokai_original=1
-au FileType go colorscheme molokai
 
 "{{{ Functions
 
@@ -307,20 +303,6 @@ let g:go_highlight_types=1
 let g:go_list_type="quickfix"
 let g:go_metalinter_autosave=1
 
-" neocomplete settings
-" Disable AutoComplPop.
-let g:acp_enableAtStartup=0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup=1
-" Use smartcase.
-let g:neocomplete#enable_smart_case=1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length=3
-let g:neocomplete#lock_buffer_name_pattern='\*ku\*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -331,9 +313,6 @@ endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" <BS>: close popup and delete backward char
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
 " Delete trailing white space on save
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -343,9 +322,6 @@ endfunc
 autocmd BufWrite *.go :call DeleteTrailingWS()
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.sh :call DeleteTrailingWS()
-
-" Open Ack and prompt the user
-map <leader>a :Ack<space>
 
 " Switch between the last two files
 nnoremap <leader><leader> <C-^>
